@@ -1,0 +1,5 @@
+env: "dev" # dev, prod
+host_db: "localhost"
+user_db: "auth_service"
+password_db: "12345678"
+name_db: "VK_Authorization"
