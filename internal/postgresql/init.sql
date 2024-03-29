@@ -4,7 +4,7 @@ CREATE TABLE public."USERS"
 (
     id bigserial NOT NULL,
 	email text UNIQUE,
-	password text,
+	password bytea,
     PRIMARY KEY (id)
 );
 

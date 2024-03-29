@@ -40,8 +40,9 @@ func (s *Storage) RegisterUser(u user.User) (int, error) {
 	const op = "storage.postgresql.RegisterUser"
 
 	var userID int
+	hashPassword := md5.Sum([]byte(u.Password))
 	err := s.db.QueryRow(`INSERT INTO public."USERS" (email, password) VALUES ($1, $2) returning id`,
-		u.Email, md5.Sum([]byte(u.Password))).Scan(&userID)
+		u.Email, hashPassword[:]).Scan(&userID)
 	if err != nil {
 		return -1, fmt.Errorf("%s: %w", op, err)
 	}
@@ -65,9 +66,10 @@ func (s *Storage) IsExistUserWithEmail(email string) (bool, error) {
 // Метод для возвращает id пользователя по email и паролю
 func (s *Storage) AuthorizeUser(u user.User) (int, error) {
 	const op = "storage.postgresql.AuthorizeUser"
+	hashPassword := md5.Sum([]byte(u.Password))
 
 	rowUserID, err := s.db.Query(`SELECT id FROM public."USERS" WHERE email = $1 AND password = $2`,
-		u.Email, md5.Sum([]byte(u.Password)))
+		u.Email, hashPassword[:])
 	if err != nil {
 		return -1, fmt.Errorf("%s: %w", op, err)
 	}
