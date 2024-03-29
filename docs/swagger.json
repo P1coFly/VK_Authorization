@@ -6,7 +6,7 @@
         "contact": {},
         "version": "1.0"
     },
-    "host": "localhost:cfg.Port",
+    "host": "localhost:8080",
     "basePath": "/",
     "paths": {
         "/authorize": {
