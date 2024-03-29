@@ -8,13 +8,13 @@ import (
 )
 
 type Config struct {
-	Env         string `yaml:"env"`
-	Host_db     string `yaml:"host_db"`
-	Port_db     int32  `yaml:"port_db"`
-	User_db     string `yaml:"user_db"`
-	Password_db string `yaml:"password_db"`
-	Name_db     string `yaml:"name_db"`
-	Server      `yaml:"server"`
+	Env        string `yaml:"env"`
+	HostDB     string `yaml:"host_db"`
+	PortDB     int32  `yaml:"port_db"`
+	UserDB     string `yaml:"user_db"`
+	PasswordDB string `yaml:"password_db"`
+	NameDB     string `yaml:"name_db"`
+	Server     `yaml:"server"`
 }
 
 type Server struct {
