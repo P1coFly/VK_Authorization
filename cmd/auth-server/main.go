@@ -30,7 +30,7 @@ import (
 // @securityDefinitions.apikey ApiKeyAuth
 // @in header
 // @name Authorization
-// @description Need a Bearer Token, like: Bernard <token>
+// @description Need a Bearer Token, like: Bearer `<`my_token`>`
 func main() {
 	// читаем конфиг
 	cfg := config.MustLoad()

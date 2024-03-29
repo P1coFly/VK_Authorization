@@ -214,7 +214,7 @@ const docTemplate = `{
     },
     "securityDefinitions": {
         "ApiKeyAuth": {
-            "description": "Need a Bearer Token, like: Bernard \u003ctoken\u003e",
+            "description": "Need a Bearer Token, like: Bearer ` + "`" + `\u003c` + "`" + `my_token` + "`" + `\u003e` + "`" + `",
             "type": "apiKey",
             "name": "Authorization",
             "in": "header"

@@ -134,7 +134,7 @@ paths:
       - auth
 securityDefinitions:
   ApiKeyAuth:
-    description: 'Need a Bearer Token, like: Bernard <token>'
+    description: 'Need a Bearer Token, like: Bearer `<`my_token`>`'
     in: header
     name: Authorization
     type: apiKey
