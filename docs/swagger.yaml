@@ -1,0 +1,141 @@
+basePath: /
+definitions:
+  authorize.AuthResponse:
+    properties:
+      access_token:
+        type: string
+    type: object
+  err_response.Response:
+    properties:
+      error:
+        type: string
+      status:
+        type: string
+    type: object
+  register.RegisterResponse:
+    properties:
+      password_check_status:
+        type: string
+      user_id:
+        type: integer
+    type: object
+  user.User:
+    properties:
+      email:
+        type: string
+      password:
+        type: string
+    type: object
+host: localhost:cfg.Port
+info:
+  contact: {}
+  description: API Server for Registration and Authorizathion
+  title: Authorizathion App API
+  version: "1.0"
+paths:
+  /authorize:
+    post:
+      consumes:
+      - application/json
+      description: get jwt token
+      parameters:
+      - description: account data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/authorize.AuthResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/err_response.Response'
+      summary: Authorize
+      tags:
+      - auth
+  /feed:
+    get:
+      consumes:
+      - application/json
+      description: check authorizathion
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/err_response.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: Feed
+      tags:
+      - auth
+  /register:
+    post:
+      consumes:
+      - application/json
+      description: create account
+      parameters:
+      - description: account data
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/user.User'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/register.RegisterResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        "503":
+          description: Service Unavailable
+          schema:
+            $ref: '#/definitions/err_response.Response'
+        default:
+          description: ""
+          schema:
+            $ref: '#/definitions/err_response.Response'
+      summary: Register
+      tags:
+      - auth
+securityDefinitions:
+  ApiKeyAuth:
+    description: 'Need a Bearer Token, like: Bernard <token>'
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
