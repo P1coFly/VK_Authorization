@@ -1,6 +1,7 @@
 package postgresql
 
 import (
+	"crypto/md5"
 	"database/sql"
 	"fmt"
 
@@ -40,7 +41,7 @@ func (s *Storage) RegisterUser(u user.User) (int, error) {
 
 	var userID int
 	err := s.db.QueryRow(`INSERT INTO public."USERS" (email, password) VALUES ($1, $2) returning id`,
-		u.Email, u.Password).Scan(&userID)
+		u.Email, md5.Sum([]byte(u.Password))).Scan(&userID)
 	if err != nil {
 		return -1, fmt.Errorf("%s: %w", op, err)
 	}
@@ -65,7 +66,8 @@ func (s *Storage) IsExistUserWithEmail(email string) (bool, error) {
 func (s *Storage) AuthorizeUser(u user.User) (int, error) {
 	const op = "storage.postgresql.AuthorizeUser"
 
-	rowUserID, err := s.db.Query(`SELECT id FROM public."USERS" WHERE email = $1 AND password = $2`, u.Email, u.Password)
+	rowUserID, err := s.db.Query(`SELECT id FROM public."USERS" WHERE email = $1 AND password = $2`,
+		u.Email, md5.Sum([]byte(u.Password)))
 	if err != nil {
 		return -1, fmt.Errorf("%s: %w", op, err)
 	}
