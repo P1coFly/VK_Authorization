@@ -24,7 +24,7 @@ import (
 // @version 1.0
 // @description API Server for Registration and Authorizathion
 
-// @host localhost:cfg.Port
+// @host localhost:8080
 // @BasePath /
 
 // @securityDefinitions.apikey ApiKeyAuth
@@ -48,12 +48,12 @@ func main() {
 	}
 
 	// инициализируем storage
-	storage, err := postgresql.New(cfg.Host_db, cfg.Port_db, cfg.User_db, cfg.Password_db, cfg.Name_db)
+	storage, err := postgresql.New(cfg.HostDB, cfg.PortDB, cfg.UserDB, cfg.PasswordDB, cfg.NameDB)
 	if err != nil {
 		log.Error("failed to connect storage", "error", err)
 		os.Exit(1)
 	}
-	log.Info("connect to db is successful", "host", cfg.Host_db)
+	log.Info("connect to db is successful", "host", cfg.HostDB)
 
 	// инициализируем router
 	router := chi.NewRouter()
