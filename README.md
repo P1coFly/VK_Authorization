@@ -42,4 +42,4 @@
 # Доступ к /feed
 
 Для получения доступа к /feed, необходимо вставить полученный токен доступа в заголовок запроса:
-```Authorization: Bearer <jwt_token>```
+```Authorization: Bearer <access_token>```
