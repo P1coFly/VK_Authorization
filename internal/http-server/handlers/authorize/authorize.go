@@ -65,9 +65,9 @@ func New(log *slog.Logger, authorize AuthorizeUser, key []byte) http.HandlerFunc
 		userID, err := authorize.AuthorizeUser(req)
 		if err != nil {
 			if errors.Is(err, storage.ErrUserNotFound) {
-				log.Error("not found user", "error", err)
+				log.Error("user with this email and password was not found", "error", err)
 				w.WriteHeader(404)
-				render.JSON(w, r, err_response.Error("not found user"))
+				render.JSON(w, r, err_response.Error("user with this email and password was not found"))
 				return
 			}
 			log.Error("error when checking user in the database", "error", err)
